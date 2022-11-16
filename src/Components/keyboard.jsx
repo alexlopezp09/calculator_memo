@@ -1,11 +1,11 @@
 import React from "react";
-import { Button } from "./button";
+import { MemoButton } from "./button";
 
 const KeyboardComponent = ({
   setOperator,
   clearScreen,
-  changeNumber,
-  triggerCalculation
+  clickedNumber,
+  triggerCalculation,
 }) => {
   function operatorHandler(e) {
     let operatorInput = e.target.value;
@@ -19,65 +19,48 @@ const KeyboardComponent = ({
     clearScreen();
     // forceUpdate();
   }
+
   return (
     <>
-      <Button value={"AC"} onClick={clear}>
+      <MemoButton value={"AC"} onClick={clear}>
         AC
-      </Button>
-      <Button onClick={operatorHandler} value={"+/-"}>
+      </MemoButton>
+      <MemoButton onClick={operatorHandler} value={"+/-"}>
         +/-
-      </Button>
-      <Button onClick={operatorHandler} value={"%"}>
+      </MemoButton>
+      <MemoButton onClick={operatorHandler} value={"%"}>
         %
-      </Button>
+      </MemoButton>
       {/* Challenge 2 Add pow functionality , replace percent*/}
-      <Button className="orange" onClick={operatorHandler} value={"/"}>
+      <MemoButton className="orange" onClick={operatorHandler} value={"/"}>
         /
-      </Button>
-      <Button className="grey" onClick={changeNumber} value={7}>
-        7
-      </Button>
-      <Button className="grey" onClick={changeNumber} value={8}>
-        8
-      </Button>
-      <Button className="grey" onClick={changeNumber} value={9}>
-        9
-      </Button>
-      <Button className="orange" onClick={operatorHandler} value={"X"}>
+      </MemoButton>
+      {[7, 8, 9].map((value) => (
+        <MemoButton className="grey" onClick={clickedNumber} value={value} />
+      ))}
+      <MemoButton className="orange" onClick={operatorHandler} value={"X"}>
         X
-      </Button>
-      <Button className="grey" onClick={changeNumber} value={4}>
-        4
-      </Button>
-      <Button className="grey" onClick={changeNumber} value={5}>
-        5
-      </Button>
-      <Button className="grey" onClick={changeNumber} value={6}>
-        6
-      </Button>
-      <Button className="orange" onClick={operatorHandler} value={"-"}>
+      </MemoButton>
+      {[4, 5, 6].map((value) => (
+        <MemoButton className="grey" onClick={clickedNumber} value={value} />
+      ))}
+      <MemoButton className="orange" onClick={operatorHandler} value={"-"}>
         -
-      </Button>
-      <Button className="grey" onClick={changeNumber} value={1}>
-        1
-      </Button>
-      <Button className="grey" onClick={changeNumber} value={2}>
-        2
-      </Button>
-      <Button className="grey" onClick={changeNumber} value={3}>
-        3
-      </Button>
-      <Button className="orange" onClick={operatorHandler} value={"+"}>
+      </MemoButton>
+      {[1, 2, 3].map((value) => (
+        <MemoButton className="grey" onClick={clickedNumber} value={value} />
+      ))}
+      <MemoButton className="orange" onClick={operatorHandler} value={"+"}>
         +
-      </Button>
-      <Button className="grey" onClick={changeNumber} value={0}>
+      </MemoButton>
+      <MemoButton className="grey" onClick={clickedNumber} value={0}>
         0
-      </Button>
-      <Button style={{ visibility: "hidden" }}>k</Button>{" "}
-      <Button className="grey" onClick={changeNumber} value={"."}>
+      </MemoButton>
+      <MemoButton style={{ visibility: "hidden" }}>k</MemoButton>{" "}
+      <MemoButton className="grey" onClick={clickedNumber} value={"."}>
         ,
-      </Button>
-      <Button
+      </MemoButton>
+      <MemoButton
         className="orange"
         onClick={() => {
           triggerCalculation((prev) => !prev);
@@ -85,7 +68,7 @@ const KeyboardComponent = ({
         value={"="}
       >
         =
-      </Button>
+      </MemoButton>
     </>
   );
 };

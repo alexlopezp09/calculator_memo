@@ -8,14 +8,16 @@ const mathOperations = {
   X: (x, y) => x * y,
   "-": (x, y) => x - y,
   "+": (x, y) => x + y,
-  "%": (x) => x / 100
+  "%": (x) => x / 100,
 };
 
-export const Calculator = () => {
+export const Ccalculator = () => {
   const [numberContainer, setNumberContainer] = useState([]);
-  const [tempNumber, setTempNumber] = useState(null);
+  const [displayNumber, setDisplayNumber] = useState(null);
   const [operator, setOperator] = useState();
   const [triggerCalculation, setTriggerCalculation] = useState(false);
+  //storing clicked number
+  const [clickedNumber, setClickedNumber] = useState(null);
 
   console.log("rerendering");
   // Challenge 4 if numbers didn't change and theres no pending
@@ -34,29 +36,35 @@ export const Calculator = () => {
   // }, [operator, num, firstNum]);
 
   useEffect(() => {
+    if (clickedNumber !== undefined && clickedNumber !== null) {
+      setDisplayNumber((prev) => (prev ? prev + clickedNumber : clickedNumber));
+      setClickedNumber(null);
+    }
+  }, [clickedNumber]);
+
+  useEffect(() => {
     // Solo entra al darle click al igual
     if (operator && triggerCalculation) {
       const calculatedValue = mathOperations[operator](
         parseInt(numberContainer[1], 10),
-        parseInt(tempNumber, 10)
+        parseInt(displayNumber, 10)
       );
       setNumberContainer([null, null, calculatedValue]);
       setTriggerCalculation(false);
       setOperator(null);
-      setTempNumber(null);
-    } else if (operator && tempNumber && !numberContainer[1]) {
-      setNumberContainer([null, tempNumber, null]);
-      setTempNumber(null);
+      setDisplayNumber(null);
+    } else if (operator && displayNumber && !numberContainer[1]) {
+      setNumberContainer([null, displayNumber, null]);
+      setDisplayNumber(null);
       if (operator === "%") {
         setTriggerCalculation(true);
       }
     }
-  }, [triggerCalculation, operator, numberContainer, tempNumber]);
+  }, [triggerCalculation, operator, numberContainer, displayNumber]);
 
-  const changeNumber = (e) => {
-    let input = e.target.value;
-    setTempNumber((prev) => (prev ? prev + input : input));
-  };
+  // const changeNumber = (number) => {
+  //   setDisplayNumber((prev) => (prev ? prev + number : number));
+  // };
 
   // function changeSign() {
   //   if (num > 0) {
@@ -68,7 +76,7 @@ export const Calculator = () => {
 
   const clearScreen = () => {
     setNumberContainer([]);
-    setTempNumber(null);
+    setDisplayNumber(null);
     setOperator(null);
   };
 
@@ -78,11 +86,13 @@ export const Calculator = () => {
       <Container maxWidth="xs">
         <div className="wrapper">
           <Box m={12} />
-          <h1 className="resultado">{tempNumber || numberContainer[2] || 0}</h1>
+          <h1 className="resultado">
+            {displayNumber || numberContainer[2] || 0}
+          </h1>
           <KeyboardComponent
             setOperator={setOperator}
             clearScreen={clearScreen}
-            changeNumber={changeNumber}
+            clickedNumber={(e) => setClickedNumber(e.target.value)}
             triggerCalculation={setTriggerCalculation}
           />
         </div>

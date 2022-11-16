@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-export const Button = ({ className, onClick, value, children, style = {} }) => {
+const Button = ({ className, onClick, value, children, style = {} }) => {
   console.log("Rendering a button");
+  console.log(onClick?.toString(), "funcion");
+  console.log("value", value);
   // Challange 1
   // Avoid re-render all buttons since they dont
   // Change from props.
+  useEffect(() => {
+    return () => {
+      console.log("desmontando");
+    };
+  }, []);
+
   return (
     <button style={style} className={className} onClick={onClick} value={value}>
-      {children}
+      {value}
     </button>
   );
 };
+
+export const MemoButton = React.memo(Button);
