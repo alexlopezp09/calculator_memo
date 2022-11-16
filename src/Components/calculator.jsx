@@ -11,7 +11,7 @@ const mathOperations = {
   "%": (x) => x / 100,
 };
 
-export const Ccalculator = () => {
+export const Calculator = () => {
   const [numberContainer, setNumberContainer] = useState([]);
   const [displayNumber, setDisplayNumber] = useState(null);
   const [operator, setOperator] = useState();
