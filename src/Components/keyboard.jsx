@@ -17,6 +17,7 @@ const KeyboardComponent = ({
     // Do any operation, clear it, and click on =
     // It keeps doing prev operation
     clearScreen();
+    console.log("clearing");
     // forceUpdate();
   }
 
