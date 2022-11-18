@@ -74,6 +74,9 @@ export const Calculator = () => {
   //   }
   // }
 
+  const setOnClick = (e) => setClickedNumber(e.target.value)
+  
+
   const clearScreen = () => {
     setNumberContainer([]);
     setDisplayNumber(null);
@@ -92,7 +95,7 @@ export const Calculator = () => {
           <KeyboardComponent
             setOperator={setOperator}
             clearScreen={clearScreen}
-            clickedNumber={(e) => setClickedNumber(e.target.value)}
+            clickedNumber={setOnClick}
             triggerCalculation={setTriggerCalculation}
           />
         </div>

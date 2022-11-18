@@ -21,55 +21,118 @@ const KeyboardComponent = ({
     // forceUpdate();
   }
 
+   const keyboardValues = [
+     {
+       value: 'AC',
+       color: 'undefined',
+       action: clear
+     },
+     {
+      value: '+/-',
+      color: 'undefined',
+      action: operatorHandler
+     },
+     {
+      value: '%',
+      color: 'undefined',
+      action:operatorHandler 
+    },
+    {
+      value: '/',
+      color: 'organge',
+      action:operatorHandler 
+    },
+    {
+      value: '7',
+      color: 'grey',
+      action:clickedNumber 
+    },
+    {
+      value: '8',
+      color: 'grey',
+      action:clickedNumber 
+    },
+    {
+      value: '9',
+      color: 'grey',
+      action:clickedNumber 
+    },
+    {
+      value: 'x',
+      color: 'orange',
+      action:operatorHandler 
+    },
+    {
+      value: '4',
+      color: 'grey',
+      action:clickedNumber 
+    },
+    {
+      value: '5',
+      color: 'grey',
+      action:clickedNumber 
+    },
+    {
+      value: '6',
+      color: 'grey',
+      action:clickedNumber 
+    },
+    {
+      value: '-',
+      color: 'orange',
+      action:operatorHandler 
+    },
+    {
+      value: '1',
+      color: 'grey',
+      action:clickedNumber 
+    },
+    {
+      value: '2',
+      color: 'grey',
+      action:clickedNumber 
+    },
+    {
+      value: '3',
+      color: 'grey',
+      action:clickedNumber 
+    },
+    {
+      value: '+',
+      color: 'orange',
+      action:operatorHandler 
+    },
+    {
+      value: '0',
+      color: 'grey',
+      action:clickedNumber 
+    },
+    {
+      value: 'k',
+      color: 'novisible',
+      action: undefined 
+    },
+    {
+      value: '.',
+      color: 'grey',
+      action: clickedNumber 
+    },
+    {
+      value: '=',
+      color: 'orange',
+      action: () => {
+        triggerCalculation((prev) => !prev);
+      } 
+    },
+   ] 
+
+
   return (
     <>
-      <MemoButton value={"AC"} onClick={clear}>
-        AC
-      </MemoButton>
-      <MemoButton onClick={operatorHandler} value={"+/-"}>
-        +/-
-      </MemoButton>
-      <MemoButton onClick={operatorHandler} value={"%"}>
-        %
-      </MemoButton>
-      {/* Challenge 2 Add pow functionality , replace percent*/}
-      <MemoButton className="orange" onClick={operatorHandler} value={"/"}>
-        /
-      </MemoButton>
-      {[7, 8, 9].map((value) => (
-        <MemoButton className="grey" onClick={clickedNumber} value={value} />
-      ))}
-      <MemoButton className="orange" onClick={operatorHandler} value={"X"}>
-        X
-      </MemoButton>
-      {[4, 5, 6].map((value) => (
-        <MemoButton className="grey" onClick={clickedNumber} value={value} />
-      ))}
-      <MemoButton className="orange" onClick={operatorHandler} value={"-"}>
-        -
-      </MemoButton>
-      {[1, 2, 3].map((value) => (
-        <MemoButton className="grey" onClick={clickedNumber} value={value} />
-      ))}
-      <MemoButton className="orange" onClick={operatorHandler} value={"+"}>
-        +
-      </MemoButton>
-      <MemoButton className="grey" onClick={clickedNumber} value={0}>
-        0
-      </MemoButton>
-      <MemoButton style={{ visibility: "hidden" }}>k</MemoButton>{" "}
-      <MemoButton className="grey" onClick={clickedNumber} value={"."}>
-        ,
-      </MemoButton>
-      <MemoButton
-        className="orange"
-        onClick={() => {
-          triggerCalculation((prev) => !prev);
-        }}
-        value={"="}
-      >
-        =
-      </MemoButton>
+      {keyboardValues.map(({value, color, action})=>{
+        return  <MemoButton value={value} className={color} onClick={action}/>
+      })}
+
     </>
   );
 };
