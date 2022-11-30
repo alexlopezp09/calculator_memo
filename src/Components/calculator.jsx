@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Box } from "@mui/system";
 import { Container } from "@mui/material";
-import KeyboardComponent from "./keyboard";
+import { KeyboardComponent } from "./keyboard";
+import { MemoButton } from "./button";
 
 const mathOperations = {
   "/": (x, y) => x / y,
-  X: (x, y) => x * y,
+  x: (x, y) => x * y,
   "-": (x, y) => x - y,
   "+": (x, y) => x + y,
   "%": (x) => x / 100,
 };
 
 export const Calculator = () => {
+  const [state, setState] = useState(1);
+
   const [numberContainer, setNumberContainer] = useState([]);
   const [displayNumber, setDisplayNumber] = useState(null);
   const [operator, setOperator] = useState();
@@ -62,10 +65,6 @@ export const Calculator = () => {
     }
   }, [triggerCalculation, operator, numberContainer, displayNumber]);
 
-  // const changeNumber = (number) => {
-  //   setDisplayNumber((prev) => (prev ? prev + number : number));
-  // };
-
   // function changeSign() {
   //   if (num > 0) {
   //     setNum(-num);
@@ -74,8 +73,7 @@ export const Calculator = () => {
   //   }
   // }
 
-  const setOnClick = (e) => setClickedNumber(e.target.value)
-  
+  const setOnClick = (e) => setClickedNumber(e.target.value);
 
   const clearScreen = () => {
     setNumberContainer([]);
@@ -83,10 +81,137 @@ export const Calculator = () => {
     setOperator(null);
   };
 
+  const child = useMemo(() => {
+    return <MemoButton value={2} className="gray" />;
+  }, []);
+
+  const setOnClickNumber = (e) => setClickedNumber(e.target.value);
+  const operatorHandler = (e) => {
+    let operatorInput = e.target.value;
+    setOperator(operatorInput);
+  };
+
+  const keyboardValues = [
+    {
+      value: "AC",
+      color: "undefined",
+      action: () => clearScreen(),
+    },
+    {
+      value: "+/-",
+      color: "undefined",
+      action: operatorHandler,
+    },
+    {
+      value: "%",
+      color: "undefined",
+      action: operatorHandler,
+    },
+    {
+      value: "/",
+      color: "organge",
+      action: operatorHandler,
+    },
+    {
+      value: "7",
+      color: "grey",
+      action: setOnClickNumber,
+    },
+    {
+      value: "8",
+      color: "grey",
+      action: setOnClickNumber,
+    },
+    {
+      value: "9",
+      color: "grey",
+      action: setOnClickNumber,
+    },
+    {
+      value: "x",
+      color: "orange",
+      action: operatorHandler,
+    },
+    {
+      value: "4",
+      color: "grey",
+      action: setOnClickNumber,
+    },
+    {
+      value: "5",
+      color: "grey",
+      action: setOnClickNumber,
+    },
+    {
+      value: "6",
+      color: "grey",
+      action: setOnClickNumber,
+    },
+    {
+      value: "-",
+      color: "orange",
+      action: operatorHandler,
+    },
+    {
+      value: "1",
+      color: "grey",
+      action: setOnClickNumber,
+    },
+    {
+      value: "2",
+      color: "grey",
+      action: setOnClickNumber,
+    },
+    {
+      value: "3",
+      color: "grey",
+      action: setOnClickNumber,
+    },
+    {
+      value: "+",
+      color: "orange",
+      action: operatorHandler,
+    },
+    {
+      value: "0",
+      color: "grey",
+      action: setOnClickNumber,
+    },
+    {
+      value: "k",
+      color: "novisible",
+      action: undefined,
+    },
+    {
+      value: ".",
+      color: "grey",
+      action: setOnClickNumber,
+    },
+    {
+      value: "=",
+      color: "orange",
+      action: () => {
+        console.log(setTriggerCalculation);
+        setTriggerCalculation((prev) => !prev);
+      },
+    },
+  ];
+
+  const memoisedKeyboard = useMemo(() => {
+    {
+      return keyboardValues.map(({ value, color, action }) => (
+        <MemoButton value={value} className={color} onClick={action} />
+      ));
+    }
+  }, []);
+
   return (
     <div>
       <Box m={5} />
       <Container maxWidth="xs">
+        <button onClick={() => setState(state + 1)}>
+          {state + " renders"}
+        </button>
         <div className="wrapper">
           <Box m={12} />
           <h1 className="resultado">
@@ -97,7 +222,9 @@ export const Calculator = () => {
             clearScreen={clearScreen}
             clickedNumber={setOnClick}
             triggerCalculation={setTriggerCalculation}
-          />
+          >
+            <>{memoisedKeyboard}</>
+          </KeyboardComponent>
         </div>
       </Container>
     </div>
