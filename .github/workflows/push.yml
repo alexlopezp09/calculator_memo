@@ -9,5 +9,4 @@ jobs:
 
     steps:
       - name: run test
-        uses: npm
         run: npm run test
