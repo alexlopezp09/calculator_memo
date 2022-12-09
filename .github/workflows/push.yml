@@ -1,6 +1,8 @@
-name: On push
+name: On pull request
 on:
   pull_request:
+    branches:
+      - main
 jobs:
   run-tests:
   timeout-minutes: 30
