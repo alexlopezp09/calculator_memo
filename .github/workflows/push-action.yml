@@ -1,0 +1,10 @@
+name: Push-Action 
+run-name: Push executed by ${{ github.actor }} 
+on: [push]
+jobs: 
+  Push-Action-Calculator:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v3
+      - run: echo "Job triggered on ${{ github.repository }} branch"
+      
