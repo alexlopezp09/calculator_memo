@@ -24,8 +24,19 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest",
+    "test": "react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject"
+  },
+  "jest": {
+    "collectCoverageFrom": ["./src/**"],
+    "coverageThreshold": {
+      "global": {
+        "branches": "50",
+        "functions": "65",
+        "lines": "65",
+        "statements": "65"
+      }
+    }
   },
   "browserslist": [
     ">0.2%",
