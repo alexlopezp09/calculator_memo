@@ -12,4 +12,4 @@ jobs:
       - name: install modules
         run: yarn
       - name: run test
-        run: yarn test --coverage
+        run: yarn test
