@@ -1,0 +1,15 @@
+name: On pull request
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: install modules
+        run: yarn
+      - name: run test
+        run: yarn test
