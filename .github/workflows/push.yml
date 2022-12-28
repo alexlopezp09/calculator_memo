@@ -13,5 +13,3 @@ jobs:
         run: yarn
       - name: run test
         run: yarn test --coverage
-      - name: upload coverage
-        uses: codecov/codecov-action@v1
