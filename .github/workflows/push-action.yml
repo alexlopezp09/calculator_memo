@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-# on: [push] //- añadirle lo de especificar que sea en main // añadir la config de coverage coverageThreshold --
 jobs: 
   Push-Action-Calculator:
     runs-on: ubuntu-latest
